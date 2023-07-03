@@ -1,1 +1,8 @@
-"# AI-image_generate" 
+# Requirement
+
+```
+    npm i -D nodemon
+    npm i express openai dotenv
+    npm init -y
+```
+
