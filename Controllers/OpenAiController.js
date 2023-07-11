@@ -1,34 +1,41 @@
-const {Configuration,OpenAi, OpenAIApi}=require('openai');
+const {Configuration, OpenAIApi}=require('openai');
 
-const configuration=new Configuration({
-    apiKey:`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`,
-})
+const configuration = new Configuration({
+  apiKey: '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',
+});
 
-const openai=new OpenAIApi(configuration);
+const openai = new OpenAIApi(configuration);
+const generateImage = async (req, res) => {
+  const { prompt, size } = req.body;
+  const imageSize= size === 'small' ? '256x256' : size === 'medium' ? '512x512' : '1024x1024';
 
-const generateImage=async(req,res)=>{
-    try{
-        const response = await openai.createImage({
-            prompt: "Polar bear on ice skates",
-            n: 1,
-            size: "1024x1024",
-          });
-          const image_url = response.data.data[0].url;
+  try {
+    const response = await openai.createImage({
+      prompt,
+      n: 1,
+      size: imageSize,
+    });
+    
+    const imageUrl = response.data.data[0].url;
           res.status(200).json({
-            success:true,
-            data:image_url
-          })
+          success: true,
+          data: imageUrl,
+        });
+        // console.log(imageUrl)
+        
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.status);
+      console.log(error.response.data);
+    } else {
+      console.log(error.message);
     }
-    catch(error){
-        if (error.response) {
-            console.log(error.response.status);
-            console.log(error.response.data);
-          } else {
-            console.log(error.message);
-          }
-    }
- 
-}
-//http://localhost:5000/openai/generateimage test by Postman
 
-module.exports={generateImage};
+    res.status(400).json({
+      success: false,
+      error: 'The image could not be generated',
+    });
+  }
+};
+
+module.exports = { generateImage };

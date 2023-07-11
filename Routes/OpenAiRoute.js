@@ -7,3 +7,5 @@ const {generateImage}=require('../Controllers/OpenAiController');
 Route.post('/generateimage', generateImage)
 
 module.exports=Route;
+
+
