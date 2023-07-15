@@ -5,6 +5,7 @@
 
       const prompt=document.querySelector('#prompt').value;
       const size=document.querySelector('#size').value;
+      document.querySelector('#image').src='';
 
       if (prompt === '') {
           alert('Please add some text');
@@ -33,11 +34,11 @@
             RemoveSpinner();
             throw new Error('That image could not be generated');
           }
-
-
-
+          
           const data=await response.json()
           console.log(data)
+          const img_url=data.data;
+          document.querySelector('#image').src=img_url;
           RemoveSpinner();
             
             

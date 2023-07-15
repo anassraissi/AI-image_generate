@@ -1,7 +1,7 @@
 const {Configuration, OpenAIApi}=require('openai');
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: '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',
 });
 
 const openai = new OpenAIApi(configuration);
@@ -21,7 +21,6 @@ const generateImage = async (req, res) => {
           success: true,
           data: imageUrl,
         });
-        // console.log(imageUrl)
         
   } catch (error) {
     if (error.response) {
